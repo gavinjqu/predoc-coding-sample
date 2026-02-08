@@ -1,0 +1,44 @@
+paths:
+  data_sample: data/sample
+  data_derived: data/derived
+  output: output
+  raw_sample_path: data/sample/raw_panel.parquet
+  clean_path: data/derived/clean.parquet
+  panel_path: data/derived/panel.parquet
+  clustered_path: data/derived/clustered.parquet
+  regression_path: data/derived/regression_results.parquet
+  metrics_path: output/metrics/metrics.json
+  tables_dir: output/tables
+  figures_dir: output/figures
+  logs_dir: output/logs
+
+params:
+  seed: 123
+  n_individuals: 500
+  n_waves: 5
+  missing_rate: 0.05
+  clustering:
+    enabled: true
+    k: 3
+    n_init: 20
+    features:
+      - frailty
+  regression:
+    outcome: hrgpay
+    controls:
+      - age
+      - female
+      - education
+    include_cluster: true
+  report:
+    tables:
+      - tab01_summary_stats
+      - tab02_main_regression
+      - tab03_robustness
+    figures:
+      - fig01_frailty_trajectories
+      - fig02_outcomes_by_type
+      - fig03_cluster_diagnostics
+    diagnostics_k_range:
+      - 2
+      - 6
