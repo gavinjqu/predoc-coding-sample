@@ -14,6 +14,14 @@ Clean, reproducible research pipeline for an applied micro / health & labor proj
 - Python 3.11+
 - Install deps (from `pyproject.toml`)
 
+## Quickstart
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install -e .
+./run.sh
+```
+
 ## Run
 ```bash
 ./run.sh
@@ -47,3 +55,8 @@ python3 -m src.cli --config configs/config.yaml --fast
 ## Notes
 - All data in `data/sample/` are synthetic; no dissertation data are included.
 - Notebooks are archived in `notebooks/archive/` for provenance only; the pipeline does not depend on them.
+ - Synthetic data **do not match the distribution** of the actual frailty data. For the real results and tables, see the dissertation thesis.
+
+## Paper Assets
+- Store LaTeX sources in `paper/tex/`.
+- Store final compiled outputs (PDFs, figures for the paper) in `paper/final/`.

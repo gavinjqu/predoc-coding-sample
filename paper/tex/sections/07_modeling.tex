@@ -1,0 +1,32 @@
+\section{Modeling Health Dynamics with Adjusted $R^2$}
+To further investigate the importance of health types, I conducted a comprehensive regression analysis using frailty as a dependent variable. My approach employed two distinct models: a baseline model incorporating fundamental demographic and labour market explanatory variables such as gender, earnings, education, and age, and an extended model that integrated the newly identified health types (derived from post-clustering groups). This comparative analysis aimed to quantify the additional explanatory power of health types in predicting labour market outcomes, beyond what is captured by traditional demographic variables. By juxtaposing these models, I sought to isolate whether the health types tell us anything that traditional demographic or labour market variables cannot.
+
+\begin{equation}
+    f_t = \alpha X_t + f_{age}(t) + \varepsilon_t
+\end{equation}
+
+\textbf{Basic Model + Health Types:}
+\begin{equation}
+    f_t = \alpha X_t + f_{age}(t) + \sum_{n=1}^{2} a_n D_n + \varepsilon_t
+\end{equation}
+
+To analyze the impact of health types on frailty, I employed two regression models. The basic model is represented by the first equation, where $f_t$ is the frailty index, $X_t$ includes control variables such as gender, education, and hourly pay, and $f_{age}(t)$ accounts for age effects. I then extended this to incorporate health types where $D_n$ are dummy variables for health Types~I and II, with Type~III as the reference category. This approach allows us to quantify the additional explanatory power of health types beyond basic demographic and economic factors in predicting frailty outcomes.
+
+I then used Ordinary Least Squares (OLS) regression with frailty as the dependent variable. The basic model included age, gender, education, and hourly pay (\texttt{hrgpay}) as independent variables. The extended model added dummy variables for health types (using Type~III as the reference category).
+
+\subsection{Adjusted $R^2$ Statistics}
+\begin{itemize}
+    \item Basic Model Adjusted $R^2$: 0.0525
+    \item Extended Model (with Health Types) Adjusted $R^2$: 0.2597
+\end{itemize}
+The inclusion of health types substantially improved the model's explanatory power, increasing the adjusted $R^2$ from 5.25\% to 25.97\%. This significant improvement suggests that health types are crucial factors in explaining variations in frailty.
+
+\subsection{F-test for Model Comparison}
+An F-test was conducted to compare the basic and extended models:
+\begin{itemize}
+    \item F-statistic: 13811.33, p-value $<$ 0.001
+\end{itemize}
+The highly significant F-test result confirms that adding health types significantly improves the model fit, supporting the importance of including health types in the analysis.
+
+\subsection{Heteroscedasticity}
+The Breusch--Pagan test p-value is less than 0.001, indicating the presence of heteroscedasticity. To address this, I employ robust standard errors in my final model estimation.

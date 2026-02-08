@@ -1,0 +1,46 @@
+[
+  {
+    "clustering": {
+      "cluster_counts": {
+        "1": 893,
+        "2": 483,
+        "3": 1124
+      },
+      "enabled": true,
+      "features": [
+        "frailty"
+      ],
+      "inertia": 388.0120483643144,
+      "k": 3,
+      "n_init": 20,
+      "silhouette": 0.5873844399869602
+    },
+    "datasets": {
+      "clean_rows": 2500,
+      "clustered_rows": 2500,
+      "panel_rows": 2500,
+      "raw_rows": 2500
+    },
+    "fast_mode": false,
+    "git_commit": "cb96713e42f2cb555a5b7c726a48e3a859c5e9f7",
+    "regression": {
+      "basic": {
+        "adj_r2": 0.17661864062999988,
+        "nobs": 2500,
+        "r2": 0.17760709364244887
+      },
+      "full": {
+        "adj_r2": 0.18361317480825412,
+        "nobs": 2500,
+        "r2": 0.18524660182944608
+      }
+    },
+    "run_id": "5e5e161e-ded4-4aca-9196-ce8b5de7a591",
+    "sample": {
+      "n_individuals": 500,
+      "n_waves": 5
+    },
+    "seed": 123,
+    "timestamp": "2026-02-08T05:24:11Z"
+  }
+]
