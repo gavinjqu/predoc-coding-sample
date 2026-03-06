@@ -42,5 +42,63 @@
     },
     "seed": 123,
     "timestamp": "2026-02-08T05:24:11Z"
+  },
+  {
+    "clustering": {
+      "cluster_counts": {
+        "1": 446210,
+        "2": 5406,
+        "3": 77687
+      },
+      "enabled": true,
+      "inertia": 16090.515691125522,
+      "k": 3,
+      "silhouette": 0.769387451706398
+    },
+    "datasets": {
+      "clustered_rows": 529303,
+      "n_individuals": 84494,
+      "n_waves": 13,
+      "panel_rows": 529303
+    },
+    "frailty": {
+      "death_count": 4444,
+      "mean": 0.057324723548039844,
+      "median": 0.037037037037037
+    },
+    "git_commit": "6c941296230e2694e4fdcdd37c313c8e0efd7471",
+    "mode": "real",
+    "run_id": "d8c40f12-8db3-4b7e-b4a7-7fad2cac0755",
+    "seed": 123,
+    "timestamp": "2026-03-06T17:14:09Z"
+  },
+  {
+    "clustering": {
+      "cluster_counts": {
+        "1": 446210,
+        "2": 5406,
+        "3": 77687
+      },
+      "enabled": true,
+      "inertia": 16090.515691125522,
+      "k": 3,
+      "silhouette": 0.769387451706398
+    },
+    "datasets": {
+      "clustered_rows": 529303,
+      "n_individuals": 84494,
+      "n_waves": 13,
+      "panel_rows": 529303
+    },
+    "frailty": {
+      "death_count": 4444,
+      "mean": 0.057324723548039844,
+      "median": 0.037037037037037
+    },
+    "git_commit": "6c941296230e2694e4fdcdd37c313c8e0efd7471",
+    "mode": "real",
+    "run_id": "24edb074-7bf3-4a54-bd82-a1a3e727e2ec",
+    "seed": 123,
+    "timestamp": "2026-03-06T17:41:15Z"
   }
 ]
