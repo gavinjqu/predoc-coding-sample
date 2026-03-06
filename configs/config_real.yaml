@@ -1,0 +1,36 @@
+paths:
+  data_raw: data/raw
+  data_derived: data/derived
+  output: output
+  real_data_path: data/raw/frailty_long_panel.parquet
+  panel_path: data/derived/panel.parquet
+  clustered_path: data/derived/clustered.parquet
+  metrics_path: output/metrics/metrics.json
+  tables_dir: output/tables
+  figures_dir: output/figures
+  logs_dir: output/logs
+
+params:
+  seed: 123
+  mode: real
+  id_col: pidp
+  age_col: age_dv
+  wave_col: wave
+  clustering:
+    enabled: true
+    k: 3
+    n_init: 10
+    cluster_by: pid
+    features:
+      - frailty
+  report:
+    tables:
+      - tab01_summary_stats
+      - tab02_frailty_by_wave
+    figures:
+      - fig01_frailty_trajectories
+      - fig02_frailty_distribution
+      - fig03_cluster_diagnostics
+    diagnostics_k_range:
+      - 2
+      - 8

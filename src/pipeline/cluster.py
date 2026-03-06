@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import logging
+
 import numpy as np
 import pandas as pd
 from sklearn.cluster import KMeans
@@ -25,6 +27,7 @@ def run(config: dict) -> tuple[pd.DataFrame, dict]:
     k = int(params["clustering"]["k"])
     n_init = int(params["clustering"]["n_init"])
     features = list(params["clustering"]["features"])
+    cluster_by = params["clustering"].get("cluster_by")  # e.g. "pid" to aggregate per individual
 
     validate_dataframe(
         df,
@@ -33,13 +36,40 @@ def run(config: dict) -> tuple[pd.DataFrame, dict]:
         min_rows=k,
     )
 
-    X = df[features].to_numpy()
-    X = StandardScaler().fit_transform(X)
+    if cluster_by and cluster_by in df.columns:
+        # Aggregate features per individual, cluster on means, then map back
+        logging.info("Clustering by %s-level means (%d groups)", cluster_by, df[cluster_by].nunique())
+        agg_df = df.groupby(cluster_by)[features].mean().reset_index()
+        X = agg_df[features].to_numpy()
+        scaler = StandardScaler()
+        X_scaled = scaler.fit_transform(X)
 
-    model = KMeans(n_clusters=k, n_init=n_init, random_state=int(params["seed"]))
-    labels = model.fit_predict(X)
-    df = df.copy()
-    df["health_type"] = labels + 1
+        model = KMeans(n_clusters=k, n_init=n_init, random_state=int(params["seed"]))
+        agg_df["health_type"] = model.fit_predict(X_scaled) + 1
+
+        # Map labels back to full panel
+        label_map = agg_df.set_index(cluster_by)["health_type"]
+        df = df.copy()
+        df["health_type"] = df[cluster_by].map(label_map)
+
+        # Silhouette on aggregated data
+        silhouette = None
+        if k > 1 and len(agg_df) > k:
+            silhouette = float(silhouette_score(X_scaled, agg_df["health_type"].values - 1))
+    else:
+        # Cluster on every row (original behavior, fine for small data)
+        X = df[features].to_numpy()
+        scaler = StandardScaler()
+        X_scaled = scaler.fit_transform(X)
+
+        model = KMeans(n_clusters=k, n_init=n_init, random_state=int(params["seed"]))
+        labels = model.fit_predict(X_scaled)
+        df = df.copy()
+        df["health_type"] = labels + 1
+
+        silhouette = None
+        if k > 1 and len(df) > k:
+            silhouette = float(silhouette_score(X_scaled, labels))
 
     for i in range(1, k + 1):
         df[f"type_{i}"] = (df["health_type"] == i).astype(int)
@@ -49,9 +79,6 @@ def run(config: dict) -> tuple[pd.DataFrame, dict]:
         raise ValueError(f"cluster: expected {k} clusters, got {len(counts)}")
 
     write_parquet(df, paths["clustered_path"])
-    silhouette = None
-    if k > 1 and len(df) > k:
-        silhouette = float(silhouette_score(X, labels))
 
     metrics = {
         "rows": int(len(df)),
