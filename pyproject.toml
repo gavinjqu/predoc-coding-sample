@@ -13,4 +13,5 @@ dependencies = [
   "statsmodels>=0.14",
   "matplotlib>=3.8",
   "pytest>=8.0",
+  "seaborn>=0.13.2",
 ]
